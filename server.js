@@ -1,9 +1,11 @@
+// loading packages
 var express = require('express');
 var morgan = require('morgan');
+
+// creating express application
 var app = express();
 
-// middleware
-// logging changes on server
+// middleware - logging changes on server
 app.use(morgan('dev'))
 
 // application entry point

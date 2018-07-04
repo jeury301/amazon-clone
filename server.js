@@ -4,7 +4,7 @@ var morgan = require('morgan'); // console logging for http requests
 var mongoose = require('mongoose'); // mongodb ORM
 var bodyParser = require('body-parser'); // http request parser
 var ejs = require('ejs'); // templating engine
-var ejs_mate = require('ejs-mate'); // ejs extension for flashy stuff ¯\_(ツ)_/¯
+var engine = require('ejs-mate'); // ejs extension for flashy stuff ¯\_(ツ)_/¯
 
 // loading application-related packages
 var User = require('./models/user');
@@ -29,7 +29,7 @@ mongoose.connect('mongodb://amazon-clone:amazon-clone123@ds127851.mlab.com:27851
 app.use(morgan('dev')); // logging changes on server
 app.use(bodyParser.json()); // application can now parse json data
 app.use(bodyParser.urlencoded({extended: true})) // application can now parse urlencoded data
-app.engine('ejs', ejs_mate); // setting the type of engine to ejs
+app.engine('ejs', engine); // setting the type of engine to ejs
 app.set('view engine', 'ejs'); // setting ejs
 
 // post to create user
@@ -50,6 +50,11 @@ app.post('/create-user', function(req, res, next){
 // application entry point
 app.get('/', function(req, res){
   res.render('home');
+});
+
+// about page
+app.get('/about', function(req, res){
+  res.render('about');
 });
 
 // listening on port 3000

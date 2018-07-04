@@ -29,9 +29,18 @@ app.use(bodyParser.json()) // application can now parse json data
 app.use(bodyParser.urlencoded({extended: true})) // application can now parse urlencoded data
 
 // post to create user
-app.post('/create-user', function(req, res){
+app.post('/create-user', function(req, res, next){
   var user = new User();
+  // creating a new user
   user.profile.name = req.body.profile.name;
+  user.password = req.body.password;
+  user.profile.picture = req.body.profile.picture;
+  user.email = req.body.email;
+  user.address = req.body.address;
+  user.save(function(err){
+    if(err) next(err);
+    res.json('Successfully created a new user');
+  });
 })
 
 // // application entry point

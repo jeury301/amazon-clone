@@ -1,8 +1,10 @@
 // loading third-party packages
-var express = require('express');
-var morgan = require('morgan');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+var express = require('express'); // web framework for node.js
+var morgan = require('morgan'); // console logging for http requests
+var mongoose = require('mongoose'); // mongodb ORM
+var bodyParser = require('body-parser'); // http request parser
+var ejs = require('ejs'); // templating engine
+var ejs_mate = require('ejs-mate'); // ejs extension for flashy stuff ¯\_(ツ)_/¯
 
 // loading application-related packages
 var User = require('./models/user');
@@ -24,9 +26,11 @@ mongoose.connect('mongodb://amazon-clone:amazon-clone123@ds127851.mlab.com:27851
 })
 
 // middleware
-app.use(morgan('dev')) // logging changes on server
-app.use(bodyParser.json()) // application can now parse json data
+app.use(morgan('dev')); // logging changes on server
+app.use(bodyParser.json()); // application can now parse json data
 app.use(bodyParser.urlencoded({extended: true})) // application can now parse urlencoded data
+app.engine('ejs', ejs_mate); // setting the type of engine to ejs
+app.set('view engine', 'ejs'); // setting ejs
 
 // post to create user
 app.post('/create-user', function(req, res, next){
@@ -43,9 +47,9 @@ app.post('/create-user', function(req, res, next){
   });
 })
 
-// // application entry point
+// application entry point
 app.get('/', function(req, res){
-  res.json("Amazon-clone home");
+  res.render('home');
 });
 
 // listening on port 3000

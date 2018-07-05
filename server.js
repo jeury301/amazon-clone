@@ -49,12 +49,12 @@ app.post('/create-user', function(req, res, next){
 
 // application entry point
 app.get('/', function(req, res){
-  res.render('home');
+  res.render('main/home');
 });
 
 // about page
 app.get('/about', function(req, res){
-  res.render('about');
+  res.render('main/about');
 });
 
 // listening on port 3000

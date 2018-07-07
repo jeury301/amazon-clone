@@ -5,6 +5,10 @@ var mongoose = require('mongoose'); // mongodb ORM
 var bodyParser = require('body-parser'); // http request parser
 var ejs = require('ejs'); // templating engine
 var engine = require('ejs-mate'); // ejs extension for flashy stuff ¯\_(ツ)_/¯
+var session = require('session');
+var cookieParser = require('cookie-parser');
+var falsh = require('express-flash');
+
 // loading application-related packages
 var User = require('./models/user');
 var mainRoutes = require('./routes/main');

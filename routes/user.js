@@ -15,12 +15,12 @@ router.post('/signup', function(req, res, next){
   // find only one document in the user db
   User.findOne({email:req.body.email}, function(err, existingUser){
     if(existingUser){
-      console.log(req.body.email + " already exists!");
+      req.flash('errors', 'Account with that email address already exists');
       return res.redirect('/signup');
     } else{
       user.save(function(err, user){
         if(err) return next(err);
-        res.json("New user has been created");
+        return res.redirect('/');
       });
     }
   });

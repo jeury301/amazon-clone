@@ -26,6 +26,7 @@ mongoose.connect('mongodb://amazon-clone:amazon-clone123@ds127851.mlab.com:27851
 })
 
 // middleware
+app.use(express.static(__dirname+'/public'));
 app.use(morgan('dev')); // logging changes on server
 app.use(bodyParser.json()); // application can now parse json data
 app.use(bodyParser.urlencoded({extended: true})) // application can now parse urlencoded data

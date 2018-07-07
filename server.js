@@ -5,10 +5,10 @@ var mongoose = require('mongoose'); // mongodb ORM
 var bodyParser = require('body-parser'); // http request parser
 var ejs = require('ejs'); // templating engine
 var engine = require('ejs-mate'); // ejs extension for flashy stuff ¯\_(ツ)_/¯
-
 // loading application-related packages
 var User = require('./models/user');
-
+var mainRoutes = require('./routes/main');
+var userRoutes = require('./routes/user');
 // creating express application
 var app = express();
 
@@ -32,31 +32,8 @@ app.use(bodyParser.json()); // application can now parse json data
 app.use(bodyParser.urlencoded({extended: true})) // application can now parse urlencoded data
 app.engine('ejs', engine); // setting the type of engine to ejs
 app.set('view engine', 'ejs'); // setting ejs
-
-// post to create user
-app.post('/create-user', function(req, res, next){
-  var user = new User();
-  // creating a new user
-  user.profile.name = req.body.profile.name;
-  user.password = req.body.password;
-  user.profile.picture = req.body.profile.picture;
-  user.email = req.body.email;
-  user.address = req.body.address;
-  user.save(function(err){
-    if(err) return next(err);
-    res.json('Successfully created a new user');
-  });
-})
-
-// application entry point
-app.get('/', function(req, res){
-  res.render('main/home');
-});
-
-// about page
-app.get('/about', function(req, res){
-  res.render('main/about');
-});
+app.use(mainRoutes); // setting up main routes
+app.use(userRoutes); // setting up user routes
 
 // listening on port 3000
 app.listen(3000, function(err){

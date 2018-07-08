@@ -45,7 +45,7 @@ UserSchema.pre('save', function(next){
 /* The user schema actions user-defined methods */
 // comparing user-typed password with db-password
 UserSchema.methods.comparePassword = function(password){
-  return bcrypt.compareSync(passord, this.password);
+  return bcrypt.compareSync(password, this.password);
 }
 
 // exporting module

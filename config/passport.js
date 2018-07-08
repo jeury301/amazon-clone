@@ -18,26 +18,34 @@ passport.deserializeUser(function(id, done){
 passport.use('local-login', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
-  passReqToCallBack: true
-},function(req, email, password,done){
+  passReqToCallback: true
+},function(req, email,password,done){
+    console.log("I am here!!!")
     User.findOne({email: email}, function(err, user){
+      console.log("Made it here")
       // checking for errors
-      if(err) return done(err);
+      if(err) {
+        console.log("General error: "+err)
+        return done(err);
+      }
       // checking for user existence
-      if(!user) return done(null, false, req.flash('loginMessage', 'No user has been found'));
+      if(!user) {
+        console.log("User not found");
+        return done(null, false, req.flash('loginMessage', 'No user has been found'));
+      }
       // validating password
       if(!user.comparePassword(password)){
+        console.log("PASSWORD IS NOT GOOD")
         return done(null, false, req.flash('loginMessage', 'Oops! Wrong Password pal'));
       }
+      console.log("everything looks OK")
       // everything is OK - it is a go.
       return done(null, user);
     });
-  })
-);
+}));
 
 // custom function to validate
 exports.isAuthenticated = function(req, res, next){
   if(req.isAuthenticated()) return next();
-
   res.redirect('/login');
 }

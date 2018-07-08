@@ -33,6 +33,7 @@ router.post('/signup', function(req, res, next){
   user.profile.name = req.body.name;
   user.email = req.body.email;
   user.password = req.body.password;
+  user.profile.picture = user.gravatar();
 
   // find only one document in the user db
   User.findOne({email:req.body.email}, function(err, existingUser){
@@ -42,7 +43,11 @@ router.post('/signup', function(req, res, next){
     } else{
       user.save(function(err, user){
         if(err) return next(err);
-        return res.redirect('/');
+        // adding the session to the server and the cookie to the browser
+        req.logIn(user, function(err){
+          if(err) return next(err);
+            res.redirect('/profile');
+        })
       });
     }
   });

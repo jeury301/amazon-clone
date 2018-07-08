@@ -47,6 +47,10 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next){
+  req.app.locals.user = req.user;
+  next();
+})
 app.engine('ejs', engine); // setting the type of engine to ejs
 app.set('view engine', 'ejs'); // setting ejs
 app.use(mainRoutes); // setting up main routes

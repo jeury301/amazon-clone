@@ -8,6 +8,8 @@ var engine = require('ejs-mate'); // ejs extension for flashy stuff ¯\_(ツ)_/�
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var flash = require('express-flash');
+var MongoStore = require('connect-mongo')(session);
+var passport = require('passport'); // authentication library
 
 // loading application-related packages
 var config = require('./config/secret')
@@ -39,7 +41,8 @@ app.use(cookieParser());
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: config.secretKey
+  secret: config.secretKey,
+  store: new MongoStore({url:config.database, autoReconnect:true})
 }))
 app.use(flash());
 app.engine('ejs', engine); // setting the type of engine to ejs

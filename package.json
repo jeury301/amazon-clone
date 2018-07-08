@@ -6,6 +6,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.1",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "ejs-mate": "^2.3.0",
@@ -15,6 +16,8 @@
     "mongoose": "^5.2.1",
     "morgan": "^1.9.0",
     "node": "^10.5.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "session": "^0.1.0"
   },
   "devDependencies": {},

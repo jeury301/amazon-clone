@@ -14,6 +14,13 @@ router.post('/login', passport.authenticate('local-login', {
   failureFlash: true
 }))
 
+router.get('/profile', function(req, res, next){
+  User.findOne({_id: req.user._id}, function(err, user){
+    if(err) return rext(err);
+    res.render('accounts/profile', {user: user});
+  })
+})
+
 router.get('/signup', function(req, res, next){
   res.render('accounts/signup', {
     errors: req.flash('errors')

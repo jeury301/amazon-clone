@@ -1,1 +1,24 @@
-HELLO LOGIN
+<% layout('layout') %>
+<div class="row">
+  <div class="col-lg-6 col-md-offset-3">
+
+    <% if (message.length > 0){ %>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+          <strong>Error: </strong><%= message %>
+      </div>
+    <%} %>
+    <h1>Login</h1>
+    <form method="post">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password">
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+</div>

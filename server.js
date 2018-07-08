@@ -10,6 +10,7 @@ var cookieParser = require('cookie-parser');
 var flash = require('express-flash');
 
 // loading application-related packages
+var config = require('./config/secret')
 var User = require('./models/user');
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
@@ -21,7 +22,7 @@ const options = {
 }
 
 // connecting to mongolab DB
-mongoose.connect('mongodb://amazon-clone:amazon-clone123@ds127851.mlab.com:27851/amazon-clone-db',options,function(err){
+mongoose.connect(config.database,options,function(err){
   if(err){
     console.log("Connection error: "+err);
   } else{
@@ -38,7 +39,7 @@ app.use(cookieParser());
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: "amazon-clone-secret"
+  secret: config.secretKey
 }))
 app.use(flash());
 app.engine('ejs', engine); // setting the type of engine to ejs
@@ -47,7 +48,7 @@ app.use(mainRoutes); // setting up main routes
 app.use(userRoutes); // setting up user routes
 
 // listening on port 3000
-app.listen(3000, function(err){
+app.listen(config.port, function(err){
   if(err) throw err;
   console.log("Server is runnning on port 3000");
 });

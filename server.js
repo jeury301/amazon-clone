@@ -45,6 +45,8 @@ app.use(session({
   store: new MongoStore({url:config.database, autoReconnect:true})
 }))
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.engine('ejs', engine); // setting the type of engine to ejs
 app.set('view engine', 'ejs'); // setting ejs
 app.use(mainRoutes); // setting up main routes

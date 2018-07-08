@@ -1,5 +1,6 @@
 var passport = require('passport'); // social login - facebook, twitter, etc
-var LocalStrategy = require('passport-local').Strategy(); // local login
+var LocalStrategy = require('passport-local').Strategy; // local login
+var User = require('../models/user');
 
 // serialize and deserialize the user object
 passport.serializeUser(function(user, done){
@@ -18,23 +19,24 @@ passport.use('local-login', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallBack: true
-},function(req, email, password, done){
-  User.findOne({email: email}, function(err, user){
-    // checking for errors
-    if(err) return done(err);
-    // checking for user existence
-    if(!user) return done(null, false, req.flash('loginMessage', 'No user has been found'))
-    // validating password
-    if(!user.comparePassword(password)){
-      return done(null, false, req.flash('loginMessage', 'Oops! Wrong Password pal'));
-    }
-    // everything is OK - it is a go.
-    return done(null, user);
-  });
-}));
+},function(req, email, password,done){
+    User.findOne({email: email}, function(err, user){
+      // checking for errors
+      if(err) return done(err);
+      // checking for user existence
+      if(!user) return done(null, false, req.flash('loginMessage', 'No user has been found'));
+      // validating password
+      if(!user.comparePassword(password)){
+        return done(null, false, req.flash('loginMessage', 'Oops! Wrong Password pal'));
+      }
+      // everything is OK - it is a go.
+      return done(null, user);
+    });
+  })
+);
 
 // custom function to validate
-exports.isAuthenticated = function(req, res, , next){
+exports.isAuthenticated = function(req, res, next){
   if(req.isAuthenticated()) return next();
 
   res.redirect('/login');

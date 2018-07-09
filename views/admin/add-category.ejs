@@ -1,0 +1,21 @@
+<% layout('layout') %>
+<div class="row">
+  <div class="col-lg-6 col-md-offset-3">
+
+    <% if (message.length > 0){ %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+          <strong>Success: </strong><%= message %>
+      </div>
+    <%} %>
+    <h1>Add a new Category</h1>
+    <form method="post">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="name" class="form-control" name="name">
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+</div>

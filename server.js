@@ -16,6 +16,7 @@ var config = require('./config/secret')
 var User = require('./models/user');
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
+var adminRoutes = require('./routes/admin');
 // creating express application
 var app = express();
 
@@ -55,6 +56,7 @@ app.engine('ejs', engine); // setting the type of engine to ejs
 app.set('view engine', 'ejs'); // setting ejs
 app.use(mainRoutes); // setting up main routes
 app.use(userRoutes); // setting up user routes
+app.use(adminRoutes); // setting up admin routes
 
 // listening on port 3000
 app.listen(config.port, function(err){

@@ -19,7 +19,7 @@ router.get('/profile', function(req, res, next){
     if(err) return rext(err);
     res.render('accounts/profile', {user: user});
   })
-})
+});
 
 router.get('/signup', function(req, res, next){
   res.render('accounts/signup', {
@@ -46,7 +46,7 @@ router.post('/signup', function(req, res, next){
         // adding the session to the server and the cookie to the browser
         req.logIn(user, function(err){
           if(err) return next(err);
-            res.redirect('/profile');
+          res.redirect('/profile');
         })
       });
     }

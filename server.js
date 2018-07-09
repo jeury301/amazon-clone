@@ -12,11 +12,14 @@ var MongoStore = require('connect-mongo')(session);
 var passport = require('passport'); // authentication library
 
 // loading application-related packages
-var config = require('./config/secret')
+var config = require('./config/secret');
 var User = require('./models/user');
+var Category = require('./models/category');
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
 var adminRoutes = require('./routes/admin');
+var apiRoutes = require('./api/api');
+
 // creating express application
 var app = express();
 
@@ -49,14 +52,24 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req, res, next){
-  req.app.locals.user = req.user;
+  res.app.locals.user = req.user;
   next();
 })
+
+app.use(function(req, res, next){
+  Category.find({}, function(err,categories){
+    if(err) return next(err)
+    res.app.locals.categories = categories;
+    next();
+  })
+})
+
 app.engine('ejs', engine); // setting the type of engine to ejs
 app.set('view engine', 'ejs'); // setting ejs
 app.use(mainRoutes); // setting up main routes
 app.use(userRoutes); // setting up user routes
 app.use(adminRoutes); // setting up admin routes
+app.use('/api', apiRoutes);
 
 // listening on port 3000
 app.listen(config.port, function(err){

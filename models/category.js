@@ -5,4 +5,10 @@ var CategorySchema = new Schema({
   name: {type:String, unique: true, lowercase:true}
 });
 
+// assign a function to the "methods" object of our animalSchema
+ CategorySchema.methods.findAll = function(cb) {
+   return this.model('Category').find({ }, cb);
+ };
+
+
 module.exports = mongoose.model('Category', CategorySchema);

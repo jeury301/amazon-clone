@@ -19,6 +19,7 @@ var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
 var adminRoutes = require('./routes/admin');
 var apiRoutes = require('./api/api');
+var publicRoutes = require('./routes/public')
 
 // creating express application
 var app = express();
@@ -42,6 +43,24 @@ app.use(morgan('dev')); // logging changes on server
 app.use(bodyParser.json()); // application can now parse json data
 app.use(bodyParser.urlencoded({extended: true})) // application can now parse urlencoded data
 app.use(cookieParser());
+// Add headers
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8101');
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
 app.use(session({
   resave: true,
   saveUninitialized: true,
@@ -69,6 +88,7 @@ app.set('view engine', 'ejs'); // setting ejs
 app.use(mainRoutes); // setting up main routes
 app.use(userRoutes); // setting up user routes
 app.use(adminRoutes); // setting up admin routes
+app.use('/public', publicRoutes);
 app.use('/api', apiRoutes);
 
 // listening on port 3000

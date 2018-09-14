@@ -1,4 +1,4 @@
-# Amazon Clone
+# Amazon Clone [In progress]
 >Building an amazon clone from <a href="https://goo.gl/eA8opi" target="_blank">udemy</a> course. Exploring a set of interesting tools for Web development. Understanding the how`s of building an Ecommerce site!
 
 # Development Stack

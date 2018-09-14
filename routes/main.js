@@ -1,6 +1,33 @@
 var router = require('express').Router();
 var Product = require('../models/product')
 
+// bridge between the product db and the elastic-search replica set
+Product.createMapping(function(err, mapping){
+    if(err){
+        console.log("error creating mapping");
+        console.log(err);
+    } else {
+        console.log("Mapping created");
+        console.log(mapping);
+    }
+})
+
+// sending data to elasticsearch
+var stream = Product.synchronize();
+var count = 0;
+
+stream.on('data', function(){
+    count++;
+});
+
+stream.on('close', function(){
+    console.log("Indexed "+count+" documents");
+});
+
+stream.on('error', function(err){
+    console.log(err);
+});
+
 // application entry point
 router.get('/', function(req, res){
   res.render('main/home');

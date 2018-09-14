@@ -2,7 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var CategorySchema = new Schema({
-  name: {type:String, unique: true, lowercase:true}
+  name: {
+      type:String,
+      es_type: 'text',
+      unique: true,
+      lowercase:true,
+  }
 });
 
 // assign a function to the "methods" object of our animalSchema

@@ -16,6 +16,7 @@
     "express-session": "^1.15.6",
     "fake": "^0.2.2",
     "faker": "^4.1.0",
+    "mongoosastic": "^4.4.1",
     "mongoose": "^5.2.1",
     "morgan": "^1.9.0",
     "node": "^10.5.0",

@@ -20,7 +20,7 @@ router.get('/:name', function(req, res, next){
         product.category_name = category.name;
         product.name = faker.commerce.productName();
         product.price = faker.commerce.price();
-        product.image = "https://picsum.photos/420/420/?"+faker.commerce.productName();
+        product.image = "https://picsum.photos/640/480/?"+faker.commerce.productName();
         product.save();
       }
     }

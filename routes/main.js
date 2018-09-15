@@ -28,6 +28,30 @@ stream.on('error', function(err){
     console.log(err);
 });
 
+router.post('/search', function(req, res, next){
+    res.redirect('/search?q='+req.body.q);
+});
+
+// what the fuck... LOL
+router.get('/search', function(req, res, next){
+    if(req.query.q){
+        Product.search({
+            query_string: {query: req.query.q}
+        }, function(err, results){
+            if(err) return next(err);
+            var data = results.hits.hits.map(function(hit){
+                return hit;
+            });
+
+            // rendering the data under ejs stuff
+            res.render('main/search-result', {
+                query: req.query.q,
+                data: data
+            });
+        });
+    }
+});
+
 // application entry point
 router.get('/', function(req, res){
   res.render('main/home');

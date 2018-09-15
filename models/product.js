@@ -19,6 +19,10 @@ var ProductSchema = new Schema({
   image: {
       type:String,
       es_type: 'text'
+  },
+  category_name: {
+      type:String,
+      es_type: 'text'
   }
 });
 

@@ -17,9 +17,10 @@ router.get('/:name', function(req, res, next){
       for(var i=0; i < 30; i++){
         var product = new Product();
         product.category = category._id;
+        product.category_name = category.name;
         product.name = faker.commerce.productName();
         product.price = faker.commerce.price();
-        product.image = faker.image.image();
+        product.image = "https://picsum.photos/420/420/?"+faker.commerce.productName();
         product.save();
       }
     }

@@ -32,7 +32,7 @@ router.post('/search', function(req, res, next){
     res.redirect('/search?q='+req.body.q);
 });
 
-// what the fuck... LOL
+// Searching documents using elasticsearch
 router.get('/search', function(req, res, next){
     if(req.query.q){
         Product.search({
@@ -53,8 +53,34 @@ router.get('/search', function(req, res, next){
 });
 
 // application entry point
-router.get('/', function(req, res){
-  res.render('main/home');
+router.get('/', function(req, res, next){
+
+    // If user is logged in, display a pagination view
+    // of the products
+    if (req.user){
+        var perPage = 9;
+        var page = req.params.page;
+
+        Product
+            .find()
+            .skip(perPage * page)
+            .limit(perPage)
+            .populate('category')
+            .exec(function(err, products){
+                if (err) return next();
+                Product.count().exec(function(err, count){
+                    if (err) return next();
+
+                    res.render('main/product-main', {
+                        products: products,
+                        pages: count / perPage
+                    });
+                });
+            });
+    }
+    else{
+        res.render('main/home');
+    }
 });
 
 // about page

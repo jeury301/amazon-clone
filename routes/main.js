@@ -51,6 +51,18 @@ stream.on('error', function(err){
     console.log(err);
 });
 
+router.get('/cart', function(req, res, next){
+    Cart
+    .findOne({ owner: req.user._id})
+    .populate('items.item')
+    .exec(function(err, found_cart){
+        if(err) return next(err);
+        res.render('main/cart', {
+            found_cart: found_cart
+        });
+    });
+});
+
 router.post('/product/:product_id', function(req, res, next){
     Cart.findOne({owner: req.user._id}, function(err, cart){
         cart.items.push({

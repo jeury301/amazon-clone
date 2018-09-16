@@ -54,4 +54,33 @@ $(function(){
             }
         });
     });
+
+    $(document).on('click', '#plus', function(e){
+        e.preventDefault();
+        var price_value = parseFloat($("#price_value").val());
+        var quantity = parseInt($("#quantity").val());
+
+        price_value += parseFloat($("#price_hidden").val());
+        quantity += 1;
+
+        $("#quantity").val(quantity);
+        $("#price_value").val(price_value.toFixed(2));
+        $("#total").html(quantity);
+    });
+
+    $(document).on('click', '#minus', function(e){
+
+        e.preventDefault();
+        var price_value = parseFloat($("#price_value").val());
+        var quantity = parseInt($("#quantity").val());
+
+        if(quantity > 1){
+            price_value -= parseFloat($("#price_hidden").val());
+            quantity -= 1;
+
+            $("#quantity").val(quantity);
+            $("#price_value").val(price_value.toFixed(2));
+            $("#total").html(quantity);
+        }
+    });
 });

@@ -4,13 +4,13 @@
     <h1 class="text-center"> Shop Smart, Save Big! </h1>
     <p class="text-center">Find your favorite Product</p>
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3 col-sm-9 col-xs-9">
             <div class="input-group col-md-12">
                 <div class="row">
-                    <div class="col-md-10">
-                        <input type="text" class="form-control input-lg" name="search_term" placeholder="Find product..."/>
+                    <div class="col-md-10 col-sm-10 col-xs-10">
+                        <input type="text" id="search" class="form-control input-lg" name="search_term" placeholder="Find product..."/>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
                         <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
   </div>
 </div>
 <div class="container">
-  <div class="row">
+  <div class="row search_results">
     <% for (var i=0; i < products.length; i++){ %>
     <div class="col-md-4">
       <a href="/product/<%= products[i]._id %>">
@@ -36,12 +36,18 @@
     </div>
     <% if ((i+1)%3===0) { %>
         </div>
-        <div class="row">
+        <div class="row search_results">
     <% } %>
     <% } %>
-    <div class="row">
+    </div>
+
+    <div class="row" id="instant_search">
+
+    </div>
+    <div class="row" id="pagination">
         <div class="col-md-12">
-            <ul class="pagination text-center" style="margin-left: 15px;">
+            <ul class="pagination text-center">
+
                 <% for(var i=1; i <= pages; i++){ %>
                     <% if (i === 1) { %>
                         <% if (undefined == page) { %>

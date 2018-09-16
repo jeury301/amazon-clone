@@ -1,5 +1,6 @@
 var router = require('express').Router();
-var Product = require('../models/product')
+var Product = require('../models/product');
+var Cart = require('../models/cart');
 
 function paginate(req, res, next){
     var perPage = 9;
@@ -71,6 +72,8 @@ router.post('/product/:product_id', function(req, res, next){
             quantity: parseInt(req.body.quantity)
         });
 
+        console.log(cart.total);
+        console.log(parseFloat(req.body.price_value));
         cart.total = (cart.total + parseFloat(req.body.price_value)).toFixed(2);
         cart.save(function(err){
             if(err) return next(err);

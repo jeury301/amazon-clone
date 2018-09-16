@@ -2,18 +2,25 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <% for(var i=0; i < found_cart.items.length; i++) { %
+            <% for(var i=0; i < found_cart.items.length; i++) { %>
                 <div class="list-group">
                     <span class="list-group-item">
                         <div class="row">
                             <div class="col-md-3">
-                                <span><img class="product-image" src="<%= found_cart.items[i]."/></span>
+                                <span><img class="product-image" src="<%= found_cart.items[i].item.image %>"/></span>
                             </div>
                             <div class="col-md-6">
-
+                                <p class="list-group-item-heading">
+                                    <%= found_cart.items[i].item.name %>
+                                </p>
                             </div>
                             <div class="col-md-3">
-
+                                <p>
+                                    <%= found_cart.items[i].item.quantity %>
+                                </p>
+                                <p>
+                                    <%= found_cart.items[i].item.price %>
+                                </p>
                             </div>
                         </div>
                     </span>

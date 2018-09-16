@@ -23,7 +23,7 @@ $(function(){
                     for(var i=0; i<products.length; i++){
                         if(!added.has(products[i]._source.name)){
                             html += "<div class='col-md-4'>";
-                            html += "<a href='/product/'"+products[i]._source._id+"'>";
+                            html += "<a href='/product/"+products[i]._id+"'>";
                             html += "<div class='thumbnail'>";
                             html += "<img src="+products[i]._source.image+">";
                             html += "<div class='caption'>";

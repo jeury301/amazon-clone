@@ -39,6 +39,18 @@
         </ul>
       </li>
       <% } %>
+
+      <% if(user) { %>
+          <li>
+              <a href="/cart"><i class="fa fa-shopping-cart fa-lg">&nbsp;</i>
+                  <% if (cart != 0) {%>
+                      <span class="badge">10</span>
+                  <% } %>
+              </a>
+          </li>
+      <% } else { %>
+
+      <% } %>
     </ul>
   </div>
 </nav>

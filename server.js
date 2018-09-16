@@ -19,7 +19,9 @@ var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
 var adminRoutes = require('./routes/admin');
 var apiRoutes = require('./api/api');
-var publicRoutes = require('./routes/public')
+var publicRoutes = require('./routes/public');
+
+var cartLen = require('./middlewares/middlewares');
 
 // creating express application
 var app = express();
@@ -74,6 +76,8 @@ app.use(function(req, res, next){
   res.app.locals.user = req.user;
   next();
 })
+
+app.use(cartLen);
 
 app.use(function(req, res, next){
   Category.find({}, function(err,categories){

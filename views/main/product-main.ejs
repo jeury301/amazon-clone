@@ -1,9 +1,22 @@
 <% layout('layout') -%>
 <div class="jumbotron">
   <div class="container">
-    <h1> Shop Smart, Save Big! </h1>
-    <p>Find your favorite Product</p>
-    <!-- <p><a class="btn btn-primary btn-lg" href="/signup" role="button">Signup &raquo;</a></p> -->
+    <h1 class="text-center"> Shop Smart, Save Big! </h1>
+    <p class="text-center">Find your favorite Product</p>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="input-group col-md-12">
+                <div class="row">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control input-lg" name="search_term" placeholder="Find product..."/>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </div>
 <div class="container">

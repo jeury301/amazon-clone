@@ -1,7 +1,13 @@
 <% layout('layout') -%>
 <div class="container">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-7 col-lg-offset-1">
+            <% if (message.length > 0){ %>
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+                  <strong>Success: </strong><%= message %>
+              </div>
+            <%} %>
             <% for(var i=0; i < found_cart.items.length; i++) { %>
                 <div class="list-group">
                     <span class="list-group-item">
@@ -16,11 +22,17 @@
                             </div>
                             <div class="col-md-3">
                                 <p>
-                                    <%= found_cart.items[i].quantity %>
+                                    <strong>Quanity:</strong> <%= found_cart.items[i].quantity %>
                                 </p>
                                 <p>
-                                    <%= found_cart.items[i].item.price %>
+                                    $<%= found_cart.items[i].item.price %>.00
                                 </p>
+
+                                <form method="POST" action="/remove">
+                                    <input type="hidden" name="item" value="<%= found_cart.items[i]._id%>">
+                                    <input type="hidden" name="price" value="<%= found_cart.items[i].price%>">
+                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                </form>
                             </div>
                         </div>
                     </span>

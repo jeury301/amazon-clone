@@ -102,14 +102,14 @@ $(function(){
     }
 
     $('#payment-form').submit(function(event){
-        var $form = $(this);
-
-        console.log($form)
-        $form.find('button').prop('disabled', true);
-
-        Stripe.card.createToken($form, stripeResponseHandler);
-
-        return false;
+        // var $form = $(this);
+        //
+        // console.log($form)
+        // $form.find('button').prop('disabled', true);
+        //
+        // Stripe.card.createToken($form, stripeResponseHandler);
+        //
+        // return false;
     });
 
 });

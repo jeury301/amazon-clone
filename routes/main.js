@@ -1,8 +1,9 @@
 var router = require('express').Router();
 var Product = require('../models/product');
 var Cart = require('../models/cart');
-
+var User = require('../models/user');
 var stripe = require('stripe')('sk_test_s3Na0GfsNlXeGlri1Q62fGPy')
+var async = require('async');
 
 function paginate(req, res, next){
     var perPage = 9;
@@ -89,17 +90,46 @@ router.post('/payment', function(req, res, next){
     var stripe_token = req.body.stripe_token;
     var current_charges = Math.round(req.body.stripe_money * 100);
 
-    stripe.customers.create({
-        source: stripe_token
-    }).then(function(customer){
-        return stripe.charges.create({
-            amount: current_charges,
-            currency: 'usd',
-            customer: customer.id
-        });
-    });
+    // stripe.customers.create({
+    //     source: stripe_token
+    // }).then(function(customer){
+    //     return stripe.charges.create({
+    //         amount: current_charges,
+    //         currency: 'usd',
+    //         customer: customer.id
+    //     });
+    // });
+    async.waterfall([
+        function(callback){
+            Cart.findOne({owner: req.user._id}, function(err, cart){
+                callback(err, cart);
+            })
+        },
+        function(cart, callback){
+            User.findOne({_id: req.user._id}, function(err, user){
+                if(user){
+                    for(var i=0; i < cart.items.length; i++){
+                        user.history.push({
+                            item: cart.items[i].item,
+                            piad: cart.items[i].price
+                        });
+                    }
 
-    res.redirect('/profile');
+                    user.save(function(err, user){
+                        if(err) return next(err);
+                        callback(err, user);
+                    });
+                }
+            });
+        },
+        function(user){
+            Cart.update({owner: user._id}, {$set: {items:[], total:0}}, function(err, updated){
+                if(updated) {
+                    res.redirect('/profile');
+                }
+            });
+        }
+    ]);
 });
 
 router.post('/remove', function(req, res, next){

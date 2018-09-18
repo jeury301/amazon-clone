@@ -22,7 +22,8 @@
     "node": "^10.5.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "stripe": "^6.10.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -2,6 +2,8 @@ var router = require('express').Router();
 var Product = require('../models/product');
 var Cart = require('../models/cart');
 
+var stripe = require('stripe')('sk_test_s3Na0GfsNlXeGlri1Q62fGPy')
+
 function paginate(req, res, next){
     var perPage = 9;
     var page = req.params.page;
@@ -81,6 +83,23 @@ router.post('/product/:product_id', function(req, res, next){
             return res.redirect('/cart');
         });
     });
+});
+
+router.post('/payment', function(req, res, next){
+    var stripe_token = req.body.stripe_token;
+    var current_charges = Math.round(req.body.stripe_money * 100);
+
+    stripe.customers.create({
+        source: stripe_token
+    }).then(function(customer){
+        return stripe.charges.create({
+            amount: current_charges,
+            currency: 'usd',
+            customer: customer.id
+        });
+    });
+
+    res.redirect('/profile');
 });
 
 router.post('/remove', function(req, res, next){

@@ -111,7 +111,7 @@ router.post('/payment', function(req, res, next){
                     for(var i=0; i < cart.items.length; i++){
                         user.history.push({
                             item: cart.items[i].item,
-                            piad: cart.items[i].price
+                            paid: cart.items[i].price
                         });
                     }
 

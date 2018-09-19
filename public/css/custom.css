@@ -38,3 +38,11 @@ body {
 body {
     background-color: #EAEDED;
 }
+
+.text-center{
+    color: #146eb4;
+}
+
+.thumbnail .caption h3 {
+    color: #146eb4;
+}
